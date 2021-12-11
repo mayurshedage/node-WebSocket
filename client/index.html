@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        #messages {
+            overflow-y: scroll;
+            scroll-padding: 2px;
+            height: 450px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-group mb-3 bottom">
+            <input id="message" type="text" class="form-control" placeholder="Enter message">
+            <div class="input-group-append">
+                <button id="send" class="btn btn-primary" type="button">Send</button>
+            </div>
+        </div>
+        <div id="messages">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
