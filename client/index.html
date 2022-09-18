@@ -22,11 +22,10 @@
 
 <body>
     <div class="container">
-        <div class="input-group mb-3 bottom">
-            <input id="message" type="text" class="form-control" placeholder="Enter message">
-            <div class="input-group-append">
-                <button id="send" class="btn btn-primary" type="button">Send</button>
-            </div>
+        <div class="input-group">
+            <input id="channel" type="text" class="form-control" placeholder="Enter receiver channel" required="true">
+            <input id="message" type="text" class="form-control" placeholder="Enter message" required="true">
+            <button class="form-control btn-danger" id="logout">Logout</button>
         </div>
         <div id="messages">
         </div>

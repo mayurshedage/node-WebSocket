@@ -1,17 +1,28 @@
 const url = `ws://localhost:9876/websocket`;
 const server = new WebSocket(url);
 
-const messages = document.getElementById('messages');
-const input = document.getElementById('message');
-const button = document.getElementById('send');
+let logout = document.getElementById('logout');
+let messages = document.getElementById('messages');
+let messageElement = document.getElementById('message');
+let channelElement = document.getElementById('channel');
 
-const CURRENT_USER = Math.floor(Math.random(9, 99999) * 1000);
+const CURRENT_USER = Math.floor(Math.random(10000, 99999) * 10 ** 10);
+console.log('' + CURRENT_USER);
 
-button.disabled = true;
-button.addEventListener('click', sendMessage, false)
+logout.addEventListener('click', function () {
+    server.close();
+}, false);
+
+messageElement.addEventListener('keydown', function (event) {
+    if (event.code === 'Enter') sendMessage();
+}, false)
 
 server.onopen = function () {
-    button.disabled = false;
+    server.send(JSON.stringify({
+        type: 'subscribe',
+        channel: '' + CURRENT_USER,
+        payload: {}
+    }));
 }
 
 server.onmessage = function (event) {
@@ -29,11 +40,19 @@ function createMessage(message, type) {
 }
 
 function sendMessage() {
-    const text = input.value;
+    let channel = channelElement.value;
+    let message = messageElement.value;
+
+    if (!message || !channel) return;
+
     server.send(JSON.stringify({
-        name: 'Guest-' + CURRENT_USER,
-        message: text
+        type: 'publish',
+        channel: channel,
+        payload: {
+            name: 'Guest-' + CURRENT_USER,
+            message: message
+        }
     }));
-    input.value = '';
-    input.focus()
+    messageElement.value = '';
+    messageElement.focus();
 }
