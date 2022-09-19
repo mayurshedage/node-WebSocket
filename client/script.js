@@ -3,19 +3,12 @@ const server = new WebSocket(url);
 
 let logout = document.getElementById('logout');
 let messages = document.getElementById('messages');
+
 let messageElement = document.getElementById('message');
 let channelElement = document.getElementById('channel');
 
 const CURRENT_USER = Math.floor(Math.random(10000, 99999) * 10 ** 10);
 console.log('' + CURRENT_USER);
-
-logout.addEventListener('click', function () {
-    server.close();
-}, false);
-
-messageElement.addEventListener('keydown', function (event) {
-    if (event.code === 'Enter') sendMessage();
-}, false)
 
 server.onopen = function () {
     server.send(JSON.stringify({
@@ -31,6 +24,19 @@ server.onmessage = function (event) {
 
     createMessage(content.message, content.name);
 }
+
+logout.addEventListener('click', function () {
+    server.send(JSON.stringify({
+        type: 'unsubscribe',
+        channel: '' + CURRENT_USER,
+        payload: {}
+    }));
+    server.close();
+}, false);
+
+messageElement.addEventListener('keydown', function (event) {
+    if (event.code === 'Enter') sendMessage();
+}, false);
 
 function createMessage(message, type) {
     const newMessage = document.createElement('div');

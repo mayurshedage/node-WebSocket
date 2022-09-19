@@ -7,28 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        body {
-            overflow: hidden;
-        }
-
-        #messages {
-            overflow-y: scroll;
-            scroll-padding: 2px;
-            height: 450px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="input-group">
-            <input id="channel" type="text" class="form-control" placeholder="Enter receiver channel" required="true">
-            <input id="message" type="text" class="form-control" placeholder="Enter message" required="true">
-            <button class="form-control btn-danger" id="logout">Logout</button>
+    <div class="container w-100 p-3">
+        <div class="form-row">
+            <div class="col">
+                <input id="channel" type="text" class="form-control" placeholder="Enter receiver channel">
+            </div>
+            <div class="col">
+                <input id="message" type="text" class="form-control" placeholder="Enter message">
+            </div>
+            <button class="btn btn-danger mb-2" id="logout">Logout</button>
         </div>
-        <div id="messages">
-        </div>
+
+        <div id="messages"></div>
     </div>
     <script src="script.js"></script>
 </body>

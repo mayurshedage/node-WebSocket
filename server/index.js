@@ -29,12 +29,12 @@ wss.on('connection', function (ws) {
     ws.on('open', function () {
         console.log('socket opened');
     });
-    ws.on('close', async function () {
+    ws.on('close', function () {
         console.log('socket closed');
     });
     ws.on('message', async function (data) {
-        data = typeof data === 'string' && JSON.parse(data);
-        if (typeof data === 'object') return messageHandler(data);
+        data = typeof data === 'object' && JSON.parse(data);
+        if (typeof data === 'object') return messageHandler(ws, data);
 
         ws.send(`Invalid payload`);
     });
@@ -46,10 +46,10 @@ server.on('upgrade', async function upgrade(request, socket, head) {
     });
 });
 
-const messageHandler = (data) => {
+const messageHandler = (ws, data) => {
     switch (data.type) {
         case 'subscribe':
-            rSubscribe(data);
+            rSubscribe(ws, data);
             break;
         case 'publish':
             rPublish(data);
@@ -61,7 +61,7 @@ const messageHandler = (data) => {
     }
 }
 
-const rSubscribe = async (data) => {
+const rSubscribe = async (ws, data) => {
     try {
         await subscriber.subscribe(data.channel, (content) => {
             ws.send(content);
