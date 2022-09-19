@@ -1,5 +1,5 @@
 const url = `ws://localhost:9876/websocket`;
-const server = new WebSocket(url);
+const socket = new WebSocket(url);
 
 let logout = document.getElementById('logout');
 let messages = document.getElementById('messages');
@@ -10,28 +10,35 @@ let channelElement = document.getElementById('channel');
 const CURRENT_USER = Math.floor(Math.random(10000, 99999) * 10 ** 10);
 console.log('' + CURRENT_USER);
 
-server.onopen = function () {
-    server.send(JSON.stringify({
+socket.addEventListener('error', (event) => {
+    console.error('error', event);
+});
+socket.addEventListener('close', function (event) {
+    console.error('close', event);
+});
+socket.addEventListener('open', function (event) {
+    console.log('open', event);
+    socket.send(JSON.stringify({
         type: 'subscribe',
         channel: '' + CURRENT_USER,
         payload: {}
     }));
-}
-
-server.onmessage = function (event) {
+});
+socket.addEventListener('message', function (event) {
     const { data } = event;
     content = JSON.parse(data);
 
     createMessage(content.message, content.name);
-}
+});
 
 logout.addEventListener('click', function () {
-    server.send(JSON.stringify({
+    console.log('in');
+    socket.send(JSON.stringify({
         type: 'unsubscribe',
         channel: '' + CURRENT_USER,
         payload: {}
     }));
-    server.close();
+    socket.close();
 }, false);
 
 messageElement.addEventListener('keydown', function (event) {
@@ -51,7 +58,7 @@ function sendMessage() {
 
     if (!message || !channel) return;
 
-    server.send(JSON.stringify({
+    socket.send(JSON.stringify({
         type: 'publish',
         channel: channel,
         payload: {

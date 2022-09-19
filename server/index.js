@@ -92,14 +92,3 @@ const rUnsubscribe = async (data) => {
 
 process.on('warning', e => console.warn(e.stack))
 // emitter.setMaxListeners(0)
-
-// wss.on('connection', function (ws) {
-//     ws.on('message', function (data) {
-//         data = data.toString();
-//         wss.clients.forEach(function each(client) {
-//             if (client.readyState === WebSocket.OPEN) {
-//                 client.send(data);
-//             }
-//         });
-//     });
-// });
