@@ -25,14 +25,14 @@ const wss = new WebSocket.Server({
     noServer: true
 });
 
-wss.on('connection', function (ws) {
-    ws.on('open', function () {
+wss.addListener('connection', (ws) => {
+    ws.addListener('open', () => {
         console.log('socket opened');
     });
-    ws.on('close', function () {
+    ws.addListener('close', () => {
         console.log('socket closed');
     });
-    ws.on('message', async function (data) {
+    ws.addListener('message', async (data) => {
         data = typeof data === 'object' && JSON.parse(data);
         if (typeof data === 'object') return messageHandler(ws, data);
 
