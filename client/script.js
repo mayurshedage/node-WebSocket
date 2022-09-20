@@ -6,9 +6,11 @@ let messages = document.getElementById('messages');
 
 let messageElement = document.getElementById('message');
 let channelElement = document.getElementById('channel');
+let selfChannelElement = document.getElementById('self-channel');
 
 const CURRENT_USER = Math.floor(Math.random(10000, 99999) * 10 ** 10);
-console.log('' + CURRENT_USER);
+
+selfChannelElement.value = CURRENT_USER;
 
 socket.addEventListener('error', (event) => {
     console.error('error', event);
@@ -32,13 +34,13 @@ socket.addEventListener('message', function (event) {
 });
 
 logout.addEventListener('click', function () {
-    console.log('in');
     socket.send(JSON.stringify({
         type: 'unsubscribe',
         channel: '' + CURRENT_USER,
         payload: {}
     }));
     socket.close();
+    window.location.reload();
 }, false);
 
 messageElement.addEventListener('keydown', function (event) {

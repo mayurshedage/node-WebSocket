@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.ico" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WS</title>
@@ -14,15 +15,17 @@
     <div class="container w-100 p-3">
         <div class="form-row">
             <div class="col">
-                <input id="channel" type="text" class="form-control" placeholder="Enter receiver channel">
+                <input readonly id="self-channel" type="text" class="form-control" placeholder="My channel">
             </div>
             <div class="col">
-                <input id="message" type="text" class="form-control" placeholder="Enter message">
+                <input id="channel" type="text" class="form-control" placeholder="Enter receiver channel">
             </div>
             <button class="btn btn-danger mb-2" id="logout">Logout</button>
         </div>
-
         <div id="messages"></div>
+        <div class="col">
+            <input id="message" type="text" class="form-control" placeholder="Enter message">
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

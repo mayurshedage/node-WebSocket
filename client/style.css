@@ -5,7 +5,7 @@ body {
 #messages {
     overflow-y: scroll;
     scroll-padding: 1px;
-    height: 70vh;
+    height: 65vh;
     border: 1px solid black;
 }
 
