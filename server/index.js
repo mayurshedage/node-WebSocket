@@ -75,7 +75,7 @@ const rPublish = async (data) => {
     try {
         await publisher.publish(
             data.channel,
-            JSON.stringify(data.payload)
+            JSON.stringify(data.message)
         );
     } catch (error) {
         console.error(error.message);

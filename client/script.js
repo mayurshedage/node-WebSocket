@@ -23,7 +23,7 @@ socket.addEventListener('open', function (event) {
     socket.send(JSON.stringify({
         type: 'subscribe',
         channel: '' + CURRENT_USER,
-        payload: {}
+        message: {}
     }));
 });
 socket.addEventListener('message', function (event) {
@@ -37,7 +37,7 @@ logout.addEventListener('click', function () {
     socket.send(JSON.stringify({
         type: 'unsubscribe',
         channel: '' + CURRENT_USER,
-        payload: {}
+        message: {}
     }));
     socket.close();
     window.location.reload();
@@ -63,7 +63,7 @@ function sendMessage() {
     socket.send(JSON.stringify({
         type: 'publish',
         channel: channel,
-        payload: {
+        message: {
             name: 'Guest-' + CURRENT_USER,
             message: message
         }
